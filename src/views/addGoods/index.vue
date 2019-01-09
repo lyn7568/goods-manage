@@ -170,6 +170,7 @@
           sn: [{ required: true, validator: validSN, trigger: 'blur' }]
         },
         typeObj: {
+          id: '',
           colorname: '',
           stock: '',
           unit: '',

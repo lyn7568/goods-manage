@@ -86,6 +86,7 @@
         typeInfoDialog: false,
         typeLoading: false,
         typeObj: {
+          id: '',
           colorname: '',
           stock: '',
           unit: '',
@@ -138,6 +139,7 @@
         } else {
           that.editId = false
           that.typeObj = {
+            id: '',
             colorname: '',
             stock: '',
             unit: '',
@@ -158,6 +160,7 @@
           if (valid) {
             that.typeLoading = true
             const specsItm = {
+              id: that.typeObj.id,
               colorname: that.typeObj.colorname,
               stock: that.typeObj.stock,
               unit: that.typeObj.unit,
