@@ -67,6 +67,9 @@ export default {
           }).catch((error) => {
             that.$error(error.response.data)
           })
+          setTimeout(() => {
+            that.loading = false
+          }, 3000);
         }
       })
     }

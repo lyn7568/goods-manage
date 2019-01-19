@@ -10,10 +10,10 @@
                   <el-input v-model="formObj.name" placeholder="请填写商品名称"></el-input>
                 </el-form-item>
               </el-col>
-              <el-col :lg="12" :md="12" :xs="24">
+              <el-col :lg="12" :md="12" :xs="24" v-if="goodsId">
                 <el-form-item label="商品编号" prop="sn">
-                  <span v-if="goodsId">{{formObj.sn}}</span>
-                  <el-input v-if="!goodsId" v-model="formObj.sn" placeholder="请填写商品编号"></el-input> 
+                  <span>{{formObj.sn}}</span>
+                  <!-- <el-input v-if="!goodsId" v-model="formObj.sn" placeholder="请填写商品编号"></el-input>  -->
                 </el-form-item>
               </el-col>
               <el-col :lg="24" :md="24" :xs="24">
@@ -28,18 +28,6 @@
                   </el-select>
                 </el-form-item>
               </el-col>
-              <!-- <el-col :span="24">
-                <el-col :span="5">
-                  <el-form-item prop="isRecommend">
-                    <el-checkbox label="是否为推荐">是否为推荐</el-checkbox>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="5">
-                  <el-form-item prop="isRecommend">
-                    <el-checkbox label="是否为奖品">是否为奖品</el-checkbox>
-                  </el-form-item>
-                </el-col>
-              </el-col> -->
             </el-col>
             <el-col :lg="24" :md="24" :xs="24">
               <el-col :span="24">
@@ -96,25 +84,25 @@
 
   export default {
     data() {
-      var validSN = (rule, value, callback) => {
-        if (!value) {
-          callback(new Error('请填写商品编号'))
-        } else {
-          if (!this.goodsId) {
-            this.$http.post('/sm/goods/isNameExist.do', { sn: value }, function(res) {
-              if (res.meta.state === '000000') {
-                if (res.data) {
-                  callback(new Error('该商品编号已存在，请重新填写'))
-                } else {
-                  callback()
-                }
-              }
-            })
-          } else {
-            callback()
-          }
-        }
-      }
+      // var validSN = (rule, value, callback) => {
+      //   if (!value) {
+      //     callback(new Error('请填写商品编号'))
+      //   } else {
+      //     if (!this.goodsId) {
+      //       this.$http.post('/sm/goods/isNameExist.do', { sn: value }, function(res) {
+      //         if (res.meta.state === '000000') {
+      //           if (res.data) {
+      //             callback(new Error('该商品编号已存在，请重新填写'))
+      //           } else {
+      //             callback()
+      //           }
+      //         }
+      //       })
+      //     } else {
+      //       callback()
+      //     }
+      //   }
+      // }
       return {
         goodsId: '',
         goodsCategory: [],
@@ -148,7 +136,7 @@
             tit: '市场价'
           },
           {
-            prop: 'img',
+            prop: 'imgBig',
             tit: '图片路径',
             width: 300
           },
@@ -166,8 +154,8 @@
           specs: []
         },
         rulesObj: {
-          name: [{ required: true, message: requiredTip('商品名称'), trigger: 'blur' }],
-          sn: [{ required: true, validator: validSN, trigger: 'blur' }]
+          name: [{ required: true, message: requiredTip('商品名称'), trigger: 'blur' }]
+          // sn: [{ required: true, validator: validSN, trigger: 'blur' }]
         },
         typeObj: {
           id: '',
@@ -178,7 +166,7 @@
           price: '',
           separationprice: '',
           marketprice: '',
-          img: ''
+          imgBig: ''
         },
         typeLoading: false,
         rulesTypeObj: {}

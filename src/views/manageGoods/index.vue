@@ -51,6 +51,11 @@
           <el-checkbox v-model="scope.row.isPrice" @change="setPrize(scope.row.id, $event)"></el-checkbox>
         </template>
       </el-table-column>
+      <el-table-column label="是否展示" align="center">
+        <template slot-scope="scope">
+          <el-checkbox v-model="scope.row.isShow" @change="setShow(scope.row.id, $event)"></el-checkbox>
+        </template>
+      </el-table-column>
       <el-table-column align="center" width="200">
         <template slot-scope="scope">
           <el-button
@@ -199,6 +204,17 @@ export default {
         url = '/sm/goods/canclePrice.do'
       } else {
         url = '/sm/goods/setPrice.do'
+      }
+      this.$http.post(url, { id: id }, function(res) {
+        console.log(res)
+      })
+    },
+    setShow(id, val) {
+      var url = ''
+      if (!val) {
+        url = '/sm/goods/cancleShow.do'
+      } else {
+        url = '/sm/goods/setShow.do'
       }
       this.$http.post(url, { id: id }, function(res) {
         console.log(res)

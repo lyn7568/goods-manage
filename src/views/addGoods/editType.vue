@@ -77,7 +77,7 @@
           },
           {
             span: 24,
-            prop: 'img',
+            prop: 'imgBig',
             tit: '图片',
             required: true,
             upload: true
@@ -94,7 +94,7 @@
           price: '',
           separationprice: '',
           marketprice: '',
-          img: ''
+          imgBig: ''
         },
         rulesTypeObj: {},
         uploadImg: {
@@ -147,7 +147,7 @@
             price: '',
             separationprice: '',
             marketprice: '',
-            img: ''
+            imgBig: ''
           }
         }
         setTimeout(function() {
@@ -168,7 +168,7 @@
               price: that.typeObj.price,
               separationprice: that.typeObj.separationprice,
               marketprice: that.typeObj.marketprice,
-              img: that.typeObj.img
+              imgBig: that.typeObj.imgBig
             }
             setTimeout(function() {
               if (that.editId) {
@@ -184,7 +184,7 @@
         })
       },
       uploadfun(value) {
-        this.typeObj.img = value
+        this.typeObj.imgBig = value
       }
     }
   }
