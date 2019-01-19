@@ -5,6 +5,7 @@
         <el-col :span="item.span||''" v-for="item in formItem" :key="item.index">
           <el-form-item v-if="item.prop" :label="item.tit" :prop="item.prop">
             <uploadFile v-if="item.upload" :upImgsStr="typeObj[item.prop]" :uploadImg="uploadImg" @uploadfun="uploadfun"></uploadFile>
+            <el-input v-else-if="item.float" type="number" v-model="typeObj[item.prop]" :placeholder="`请填写商品${item.tit}`" @keyup.native="handleInput" class="number__input"></el-input>
             <el-input v-else v-model="typeObj[item.prop]" :placeholder="`请填写商品${item.tit}`"></el-input>
           </el-form-item>
           <el-form-item v-else class="space-form-item"></el-form-item>
@@ -22,7 +23,7 @@
 </template>
 
 <script>
-  import { requiredTip } from '@/utils/validator'
+  import { requiredTip, checkFloatNum } from '@/utils/validator'
   import uploadFile from '@/components/UploadFile'
 
   export default {
@@ -55,24 +56,28 @@
             span: 12,
             prop: 'bid',
             tit: '进价',
+            float: true,
             required: true
           },
           {
             span: 12,
             prop: 'price',
             tit: '售价',
+            float: true,
             required: true
           },
           {
             span: 12,
             prop: 'separationprice',
             tit: '分润价',
+            float: true,
             required: true
           },
           {
             span: 12,
             prop: 'marketprice',
             tit: '市场价',
+            float: true,
             required: true
           },
           {
@@ -185,7 +190,17 @@
       },
       uploadfun(value) {
         this.typeObj.imgBig = value
+      },
+      handleInput(e) {
+        // 通过正则过滤小数点后两位
+        e.target.value = (e.target.value.match(/^\d*(\.?\d{0,2})/g)[0]) || null
       }
     }
   }
 </script>
+<style>
+  /** 去除input输入框样式 */
+  input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+</style>

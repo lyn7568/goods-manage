@@ -31,3 +31,13 @@ export function checkPhoneV(rule, value, callback) {
     return callback()
   }
 }
+
+// 表示了小数点后可以保留0位、1位、或2位小数
+export function checkFloatNum(rule, value, callback) {
+  const reg = /^(([1-9]{1}\d*)|(0{1}))(\.\d{0,2})?$/
+  if (!reg.test(value)) {
+    return callback(new Error('小数点后最多俩位'))
+  } else {
+    return callback()
+  }
+}
