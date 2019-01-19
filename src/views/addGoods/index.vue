@@ -45,7 +45,8 @@
                           <el-table-column v-for="item in tableItem" :key="item.index" :prop="item.prop ? item.prop : ''" :label="item.tit ? item.tit : ''"
                             :width="item.width ? item.width : ''" align="center">
                             <template slot-scope="scope">
-                              <div v-if="scope.row[item.prop]">{{scope.row[item.prop]}}</div>
+                              <img v-if="item.image" :src="scope.row[item.prop]" width="160">
+                              <div v-else-if="scope.row[item.prop]">{{scope.row[item.prop]}}</div>
                               <div class="operate-row" v-if="item.operate && typeof scope.row === 'object'">
                                 <el-button type="text"
                                   @click="handleEdit(scope.row, scope.$index)">编辑</el-button>
@@ -136,8 +137,9 @@
             tit: '市场价'
           },
           {
-            prop: 'imgBig',
+            prop: 'img',
             tit: '图片路径',
+            image: true,
             width: 300
           },
           {
@@ -166,7 +168,7 @@
           price: '',
           separationprice: '',
           marketprice: '',
-          imgBig: ''
+          img: ''
         },
         typeLoading: false,
         rulesTypeObj: {}
@@ -243,6 +245,7 @@
             var params = {
               name: form.name,
               sn: form.sn,
+              isShow: true,
               categorycode: form.categorycode,
               specs: form.specs
             }
@@ -250,6 +253,7 @@
               params = {
                 id: that.goodsId,
                 name: form.name,
+                isShow: true,
                 sn: form.sn,
                 categorycode: form.categorycode,
                 specs: form.specs

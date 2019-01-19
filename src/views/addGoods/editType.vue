@@ -99,7 +99,8 @@
           price: '',
           separationprice: '',
           marketprice: '',
-          imgBig: ''
+          imgBig: '',
+          img: ''
         },
         rulesTypeObj: {},
         uploadImg: {
@@ -152,7 +153,8 @@
             price: '',
             separationprice: '',
             marketprice: '',
-            imgBig: ''
+            imgBig: '',
+            img: ''
           }
         }
         setTimeout(function() {
@@ -173,7 +175,8 @@
               price: that.typeObj.price,
               separationprice: that.typeObj.separationprice,
               marketprice: that.typeObj.marketprice,
-              imgBig: that.typeObj.imgBig
+              imgBig: that.typeObj.imgBig,
+              img: that.typeObj.img
             }
             setTimeout(function() {
               if (that.editId) {
@@ -190,6 +193,7 @@
       },
       uploadfun(value) {
         this.typeObj.imgBig = value
+        this.typeObj.img = value
       },
       handleInput(e) {
         // 通过正则过滤小数点后两位
