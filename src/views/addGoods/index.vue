@@ -16,7 +16,7 @@
                   <!-- <el-input v-if="!goodsId" v-model="formObj.sn" placeholder="请填写商品编号"></el-input>  -->
                 </el-form-item>
               </el-col>
-              <el-col :lg="24" :md="24" :xs="24">
+              <el-col :lg="12" :md="12" :xs="24">
                 <el-form-item label="商品分类" prop="categorycode">
                   <el-select style="width:100%" v-model="formObj.categorycode" placeholder="请选择商品分类">
                     <el-option
@@ -26,6 +26,11 @@
                       :value="item.code">
                     </el-option>
                   </el-select>
+                </el-form-item>
+              </el-col>
+              <el-col :lg="12" :md="12" :xs="24">
+                <el-form-item label="商品限购" prop="limitNum">
+                  <el-input-number v-model="formObj.limitNum" @change="handleChangeNum" label="设置限购数量"></el-input-number>
                 </el-form-item>
               </el-col>
             </el-col>
@@ -153,6 +158,7 @@
           name: '',
           sn: '',
           categorycode: '',
+          limitNum: 0,
           specs: []
         },
         rulesObj: {
@@ -229,6 +235,10 @@
           }
         })
       },
+      handleChangeNum(val) {
+        console.log(val)
+        this.formObj.limitNum = val
+      },
       submitSaveForm(formName) {
         var that = this
         this.$refs[formName].validate((valid) => {
@@ -245,6 +255,7 @@
             var params = {
               name: form.name,
               sn: form.sn,
+              limitNum: form.limitNum,
               isShow: true,
               categorycode: form.categorycode,
               specs: form.specs
@@ -253,6 +264,7 @@
               params = {
                 id: that.goodsId,
                 name: form.name,
+                limitNum: form.limitNum,
                 isShow: true,
                 sn: form.sn,
                 categorycode: form.categorycode,
