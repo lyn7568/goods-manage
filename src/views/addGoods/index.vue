@@ -30,7 +30,12 @@
               </el-col>
               <el-col :lg="12" :md="12" :xs="24">
                 <el-form-item label="商品限购" prop="limitNum">
-                  <el-input-number v-model="formObj.limitNum" @change="handleChangeNum" label="设置限购数量"></el-input-number>
+                  <el-input-number v-model="formObj.limitNum" :min="0" @change="handleChangeNum" label="设置限购数量"></el-input-number>
+                </el-form-item>
+              </el-col>
+              <el-col :lg="12" :md="12" :xs="24">
+                <el-form-item label="兑换所需积分" prop="points">
+                  <el-input v-model="formObj.points" placeholder="请填写商品兑换所需积分"></el-input>
                 </el-form-item>
               </el-col>
             </el-col>
@@ -82,7 +87,7 @@
 </template>
 
 <script>
-  import { requiredTip } from '@/utils/validator'
+  import { requiredTip, checkInterNum } from '@/utils/validator'
 
   import { urlParse } from '@/utils'
   import uploadFile from '@/components/UploadFile'
@@ -159,11 +164,12 @@
           sn: '',
           categorycode: '',
           limitNum: 0,
+          points: 0,
           specs: []
         },
         rulesObj: {
-          name: [{ required: true, message: requiredTip('商品名称'), trigger: 'blur' }]
-          // sn: [{ required: true, validator: validSN, trigger: 'blur' }]
+          name: [{ required: true, message: requiredTip('商品名称'), trigger: 'blur' }],
+          points: [{ validator: checkInterNum, trigger: 'blur' }]
         },
         typeObj: {
           id: '',
@@ -236,7 +242,6 @@
         })
       },
       handleChangeNum(val) {
-        console.log(val)
         this.formObj.limitNum = val
       },
       submitSaveForm(formName) {
@@ -256,6 +261,7 @@
               name: form.name,
               sn: form.sn,
               limitNum: form.limitNum,
+              points: form.points,
               isShow: true,
               categorycode: form.categorycode,
               specs: form.specs
@@ -264,6 +270,7 @@
               params = {
                 id: that.goodsId,
                 name: form.name,
+                points: form.points,
                 limitNum: form.limitNum,
                 isShow: true,
                 sn: form.sn,

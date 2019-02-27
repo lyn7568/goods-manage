@@ -36,17 +36,12 @@
       <el-table-column label="商品编号" prop="sn"></el-table-column>
       <el-table-column label="商品名称" align="center" prop="name"></el-table-column>
       <el-table-column label="商品分类" align="center" prop="categorycode"></el-table-column>
-      <!-- <el-table-column label="前台是否显示" align="center">
-        <template slot-scope="scope">
-          <el-checkbox v-model="scope.row.isShow"></el-checkbox>
-        </template>
-      </el-table-column> -->
       <el-table-column label="是否为推荐" align="center">
         <template slot-scope="scope">
           <el-checkbox v-model="scope.row.isRecommend" @change="setRecommond(scope.row.id, $event)"></el-checkbox>
         </template>
       </el-table-column>
-      <el-table-column label="是否为奖品" align="center">
+      <el-table-column label="是否为积分兑换" align="center">
         <template slot-scope="scope">
           <el-checkbox v-model="scope.row.isPrice" @change="setPrize(scope.row.id, $event)"></el-checkbox>
         </template>

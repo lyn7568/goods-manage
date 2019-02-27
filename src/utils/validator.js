@@ -41,3 +41,12 @@ export function checkFloatNum(rule, value, callback) {
     return callback()
   }
 }
+
+export function checkInterNum(rule, value, callback) {
+  const reg = /^[0-9]*$/
+  if (value && !reg.test(value)) {
+      return callback(new Error('请输入正确数字格式'))
+  } else {
+      callback()
+  }
+}
