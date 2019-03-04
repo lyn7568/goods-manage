@@ -51,11 +51,11 @@
                         </el-form-item>
                       </el-col>
                       <el-col :span="24">
-                        <el-table :data="formObj.specs" height="300px" border class="table-show" @row-dblclick="handleEdit">
+                        <el-table :data="formObj.specs" :height="tableItemHeight" border class="table-show" @row-dblclick="handleEdit" ref="tableItemBody">
                           <el-table-column v-for="item in tableItem" :key="item.index" :prop="item.prop ? item.prop : ''" :label="item.tit ? item.tit : ''"
                             :width="item.width ? item.width : ''" align="center">
                             <template slot-scope="scope">
-                              <img v-if="item.image" :src="scope.row[item.prop]" width="160">
+                              <img v-if="item.image" :src="scope.row[item.prop]" style="max-width:160px">
                               <div v-else-if="scope.row[item.prop]">{{scope.row[item.prop]}}</div>
                               <div class="operate-row" v-if="item.operate && typeof scope.row === 'object'">
                                 <el-button type="text"
@@ -73,7 +73,7 @@
                 </el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item style="margin-top: 20px;" label-width="0">
+                <el-form-item style="margin-bottom: 0" label-width="0">
                   <el-button type="primary" @click="submitSaveForm('formObj')">保存</el-button>
                 </el-form-item>
               </el-col>
@@ -158,6 +158,8 @@
             width: 100
           }
         ],
+        tableItemHeight: 300,
+        spaceHeight: 410,
         formLoading: false,
         formObj: {
           name: '',
@@ -197,7 +199,17 @@
       if (urlParse('id')) {
         this.goodsId = urlParse('id')
         this.queryGoodInfo()
+        this.spaceHeight = 470
       }
+    },
+    mounted() {
+      var that = this
+      setTimeout(() => {
+        this.tableItemHeight = window.innerHeight - this.$refs.tableItemBody.$el.offsetTop - this.spaceHeight;
+      }, 100)
+      window.addEventListener('resize', ()=>{
+        that.tableItemHeight = window.innerHeight - that.$refs.tableItemBody.$el.offsetTop - that.spaceHeight;
+      })
     },
     methods: {
       getCategory() {

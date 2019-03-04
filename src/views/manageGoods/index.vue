@@ -17,7 +17,7 @@
         </div>
       </div> 
     </div>
-    <el-table :data="tableData" height="680" v-loading="tableLoading">
+    <el-table :data="tableData" :height="tableHeight" v-loading="tableLoading" ref="tableBody">
       <el-table-column type="index" width="40" align="center"></el-table-column>
       <el-table-column type="expand" width="20">
         <template slot-scope="props">
@@ -89,6 +89,7 @@ export default {
       goodsCategory: [],
       tableData: [],
       tableLoading: true,
+      tableHeight: 630,
       tableItem: [
         {
           prop: 'colorname',
@@ -132,6 +133,15 @@ export default {
     setTimeout(function() {
       that.pageQueryList()
     }, 100)
+  },
+  mounted() {
+    var that = this
+    setTimeout(() => {
+      this.tableHeight = window.innerHeight - this.$refs.tableBody.$el.offsetTop - 200;
+    }, 100)
+    window.addEventListener('resize', ()=>{
+      that.tableHeight = window.innerHeight - that.$refs.tableBody.$el.offsetTop - 200;
+    })
   },
   methods: {
     getCategory() {
