@@ -268,6 +268,15 @@
               })
               return
             }
+            for (let m = 0; m < form.specs.length; ++m) {
+              if (!form.specs[m].imgBig) {
+                that.$message({
+                  type: 'warning',
+                  message: '图片未上传，请检查'
+                })
+                return
+              }
+            }
             that.formLoading = true
             var params = {
               name: form.name,
